@@ -10,8 +10,8 @@ using std::cout;
 using std::endl;
 
 const int ELEMENTS = 10;
-int CURRENT = 0;
-int t[ELEMENTS];
+int CURRENT = 10;
+int t[ELEMENTS]{ 1,2,3,4,5,6,7,8,9,10 };
 
 void menu();
 void push();
@@ -65,7 +65,7 @@ void menu()
 	cout << "-------------------------" << endl;
 	cout << "Dodaj element do stosu\t\t[1]" << endl;
 	cout << "Zdejmij element ze stosu\t[2]" << endl;
-	cout << "Wyświetl stan stosu\t\t[3]" << endl;
+	cout << "Wyswietl stan stosu\t\t[3]" << endl;
 	cout << "Zakoncz dzialanie\t\t[4]" << endl;
 	cout << "-------------------------" << endl;
 
@@ -84,6 +84,9 @@ void push()
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 			break;
 		}
+
+		while (t[CURRENT] != NULL)
+			CURRENT++;
 
 		cout << "Podaj " << CURRENT + 1 << " element: " << endl;
 		cin >> elem;
