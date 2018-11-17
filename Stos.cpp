@@ -5,6 +5,10 @@
 #include <Windows.h>
 #include <exception>
 
+using std::cin;
+using std::cout;
+using std::endl;
+
 const int ELEMENTS = 10;
 int CURRENT = 0;
 int t[ELEMENTS];
@@ -16,7 +20,6 @@ void show();
 
 int main()
 {
-	using std::cin;
 	system("CLS");
 
 	while (true)
@@ -56,9 +59,6 @@ int main()
 
 void menu()
 {
-	using std::cout;
-	using std::endl;
-
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11); // 11, 10, 6
 
 	cout << "Co chcesz zrobic?" << endl;
@@ -74,10 +74,6 @@ void menu()
 
 void push()
 {
-	using std::cout;
-	using std::endl;
-	using std::cin;
-
 	int elem;
 	do
 	{
@@ -104,9 +100,6 @@ void push()
 
 void pull()
 {
-	using std::cout;
-	using std::endl;
-
 	if (t[0] == NULL)
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
@@ -116,10 +109,10 @@ void pull()
 	}
 
 	if (CURRENT == 10)
-		CURRENT = 9;
+		CURRENT--;
 
 	t[CURRENT] = NULL;
-	CURRENT = CURRENT - 1;
+	CURRENT--;
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 	cout << "Zdjeto " << CURRENT + 2 << " element ze stosu" << endl;
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
@@ -128,9 +121,6 @@ void pull()
 
 void show()
 {
-	using std::cout;
-	using std::endl;
-
 	if (t[0] == NULL)
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);
