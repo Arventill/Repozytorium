@@ -3,7 +3,6 @@
 #include "pch.h"
 #include <iostream>
 #include <Windows.h>
-#include <exception>
 
 using std::cin;
 using std::cout;
