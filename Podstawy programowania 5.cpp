@@ -5,106 +5,100 @@
 #include <ctime>
 #include <cstdlib>
 #include <string>
+#include <limits.h>
 
-const int ELEM = 10;
+using std::cout;
+using std::endl;
 
-int los();
-std::string andd(int [], int []);
-std::string orr (int [], int []);
-std::string xorr(int [], int []);
-std::string neg(int []);
+int los(long long);
+void andd(unsigned, unsigned);
+void orr(unsigned);
+void xorr(unsigned);
+std::string neg(unsigned); //nie chce mi siê kombinowaæ z 2 liczbami, niech zwraca po prostu wynik 1 a potem 2 liczby
 
 int main()
 {
+	using std::string;
+
 	srand(time(NULL));
-	//declaring
-	int a[ELEM], b[ELEM];
-	std::string result;
-	std::string result2;
 
-	//input
-	for (int i = 0; i < ELEM; i++)
-	{
-		a[i] = los();
-	}
-	for (int i = 0; i < ELEM; i++)
-	{
-		b[i] = los();
-	}
+	unsigned int maxIntUnsigned = _CRT_INT_MAX * 2 + 1; // _CRT_INT_MAX - jest to najwieksza wartosc inta --> wiêc najwiêksz¹ wartoœci¹ dla unsigned inta jest _CRT_INT_MAX * 2 + 1 (+1 bo dodajemy zero do naszych obliczeñ)
+	unsigned x; //deklarujemy sobie x bez znaku (-)
+	unsigned y; //jak wy¿ej
+	string resultForX, resultForY; //wyniki negacji dla x i y bêd¹ lecia³y tutej ino :P
 
-	//output a[] and b[]
-	for (int i = 0; i < ELEM; i++)
-	{
-		std::cout << a[i] << " ";
-	}std::cout << std::endl;
-	for (int i = 0; i < ELEM; i++)
-	{
-		std::cout << b[i] << " ";
-	}std::cout << std::endl;
+	x = los(maxIntUnsigned); //losujemy liczbe z zakresu 0-MAX wyliczony wy¿ej
+	y = los(maxIntUnsigned); //same here
+	cout << x << endl; //zobaczmy sobie co nam wylosowalo w X
+	cout << y << endl; //zobaczmy sobie co nam wylosowalo w Y
 
-	//Neg and output
-	result = neg(a);
-	result2 = neg(b);
-	std::cout << result << std::endl;
-	std::cout << result2 << std::endl;
+	andd(x, y); //koniunkcja
+	orr(x | y); //alternatywa bitowa --> pokazalem tutaj 2 sposob zapisywania dzialan na bitach
+	xorr(x ^ y); //xor
 
+	resultForX = neg(x); //negacja x
+	resultForY = neg(y); //negacja y
+
+	cout << endl << endl << "~X" << endl << endl;
+	cout << resultForX;
+	cout << endl << endl << "~Y" << endl << endl;
+	cout << resultForY;
+
+	cout << endl << endl;
 	system("pause");
 	return 0;
 }
 
-int los()
+int los(long long MAX) //long long bo jest to najwieksza mo¿liwa do osi¹gniêcia liczba. Nie bêdziemy losowaæ liczb poza zakresem wiêc przeœlemy tutaj NAJWIÊKSZ¥ mo¿liw¹ do wylosowania liczbê
 {
-	return rand() % 2 + 0;
+	return rand() % MAX + 0;
 }
 
-std::string andd(int t[], int t2[])
+void andd(unsigned x, unsigned y)
 {
-	std::string result="";
-	for (int i = 0; i <= ELEM - 1; i++)
+	cout << endl << endl;
+	cout << "X & Y" << endl << endl;
+	for (unsigned i = 32768; i > 0; i >>= 1) //32 768 to bitowo 1000 0000 0000 0000 --> i>>=1 przesuwa bit w prawo
 	{
-		if (t[i] == (int)1 && t2[i] == (int)1)
-			result += '1';
+		if (x&y&i) //je¿eli x == 1, y == 1, i == 1
+			cout << "1"; //pisz 1
 		else
-			result += '0';
+			cout << "0";
 	}
-	return result;
 }
-
-std::string orr (int t[], int t2[])
+void orr(unsigned x)
+{
+	cout << endl << endl;
+	cout << "X | Y" << endl << endl;
+	for (unsigned i = 32768; i > 0; i >>= 1)
+	{
+		if (x & i)
+			cout << "1";
+		else
+			cout << "0";
+	}
+}
+void xorr(unsigned x)
+{
+	cout << endl << endl;
+	cout << "X ^ Y" << endl << endl;
+	for (unsigned i = 32768; i > 0; i >>= 1)
+	{
+		if (x&i)
+			cout << "1";
+		else
+			cout << "0";
+	}
+}
+std::string neg(unsigned u)
 {
 	std::string result = "";
-	for (int i = 0; i <= ELEM - 1; i++)
+	for (int i = 32768; i > 0; i >>= 1)
 	{
-		if (t[i] == (int)0 && t2[i] == (int)0)
-			result += '0';
+		if (u&i)
+			result = result + "0";
 		else
-			result += '1';
-	}
-	return result;
-}
-
-std::string xorr(int t[], int t2[])
-{
-	std::string result = "";
-	for (int i = 0; i <= ELEM - 1; i++)
-	{
-		if (t[i] != t2[i])
-			result += '1';
-		else
-			result += '0';
-	}
-	return result;
-}
-
-std::string neg(int t[])
-{
-	std::string result = "";
-	for (int i = 0; i <= ELEM - 1; i++)
-	{
-		if (t[i] == (int)1)
-			result += '0';
-		else
-			result += '1';
+			result = result + "1";
 	}
 	return result;
 }
