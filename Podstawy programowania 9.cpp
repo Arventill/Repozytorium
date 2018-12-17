@@ -1,11 +1,21 @@
-// Podstawy programowania 9.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Podstawy programowania 9.cpp : 
 
 #include "pch.h"
 #include <iostream>
 
 int main()
 {
-	std::cout << "HAAAA! GEEEEEEEEEEEEEEEEJ\n\n";
+	char t[8];
+	for (int i = 0; i < 7; i++)
+		std::cin >> t[i];
+	std::cout << "\n";
+
+	t[7] = 0;
+
+	for (int i = 0; i < 8; i++)
+		std::cout << t[i];
+	std::cout << "\n";
+
 	system("pause");
 	return 0;
 }
