@@ -42,7 +42,7 @@ int main()
 		cout << s << endl;
 	}
 
-	cout << "Dodaj coœ od siebie: \n";
+	cout << "-----------------------------------\nTo wszystko!\n\nDodaj coœ od siebie: \n";
 	Human h1;
 	h1.in();
 	ofile << "\n" << h1.name << "\t" << h1.lastName << "\t" << h1.age;
